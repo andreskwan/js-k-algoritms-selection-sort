@@ -1,6 +1,6 @@
 //without this line, can't draw in the canvas
 fill(255, 0, 0);
-var fontWidth = 16;
+var fontWidth = 13;
 var displayArray = function(array) {
     textFont(createFont("monospace"), fontWidth);
 };
@@ -15,8 +15,8 @@ var arrayOne = [12345678901234];
 displayArray(arrayOne);
 var yPosition1 = 20*(0+1) + 0;
 var f2 = 0;
-var fontWidthFactor = fontWidth/1.5;
-var k = 7.5;
+var fontWidthFactor = fontWidth/1.8;//1.5
+var k = 0;//7.5 font 16
 text(" " + arrayOne + "\n", 0, yPosition1);
 
 for(var i=-1; i< 17; i++){
@@ -43,15 +43,57 @@ var indexOfMinimum = function(array, startIndex) {
     }
     return minIndex;
 };
-var toEqualWidth = function(intValue){
-                        if(0 <= intValue && intValue < 10){
-                            var intStr = intValue.toString();
-                            var newValue = ' '.repeat(1)+intStr;
-                            return newValue;
-                        }else{
-                            return intValue.toString();
-                        }
+
+/**
+* this function turns a integer number into a string 
+* with a specific number of characters of width
+* 
+* @params 
+* 1- intValue: value to be turned into string with 
+* 2- stringWidth : number of characters that the output string should have
+*
+* @Example:
+* inputs intValue: 1, stringWidth: 5 
+* output "     1" 
+* string with five characters, four spaces in front of the integer 
+* to complete the expected number of characters or width.
+*
+*/
+// fill(255, 0, 0);
+var intToStringWithWidth =  function(intValue, stringWidth){
+                                //1 turn intValue into a string 
+                                var intValueString = intValue.toString();
+                                // text("intValueString: " + intValueString, 200, 30);
+                                //2 identify the number of spacesToAdd to the intValueString
+                                // text("intValueString: " + intValueString, 0, 70);
+                                var spacesToAdd = stringWidth - intValueString.length;
+                                // text("spacesToAdd: " + spacesToAdd.toString(), 200, 40);
+                                //3 if spacesToAdd is 0 return if not add the spaces
+                                if (spacesToAdd > 0) {
+                                    var newStr = ' '.repeat(spacesToAdd)+intValueString;
+                                    // text("newStr: " + newStr, 200, 50);
+                                    return newStr;
+                                } else {
+                                    return intValueString;
+                                }
+                            };
+var stringWidth = 2;
+var setValueWidth = function(intValue){
+                        return intToStringWithWidth(intValue,stringWidth);
                     };
+
+/** 
+* for testing "intToStringWithWidth" uncomment next lines, 
+* and comment the rest of the file
+*/
+// var testInt = 1;
+// var testStrWidth = 5;
+// // text("intToStringWithWidth(" + testInt + ", " + testStrWidth + ").length " + intToStringWithWidth(testInt, testStrWidth).length + "\n", 0, 35);
+// var array = [22, 11, 99, 88, -6];
+// var arrayEqualWidth = array.map(setValueWidth);
+//         displayArray(arrayEqualWidth);
+// text(" " + arrayEqualWidth + "\n", 100, 100);
+
 
 /**
  * How I identified this indexFactor and the indexForPosition?
@@ -83,30 +125,26 @@ var xPostionOfIndex = function(index){
 
 var selectionSort = function(array, x, y) {
     var finalYposition = 0;
-    var arrayEqualWidth = array.map(toEqualWidth);
-        displayArray(arrayEqualWidth);
     var myArray = [];
     for(var i=0; i < array.length ; i++){
         var secondIndex = indexOfMinimum(array,i);
         var yPosition = 35*(i+1) + y;
         finalYposition = yPosition;
-        arrayEqualWidth = array.map(toEqualWidth);
+        var arrayEqualWidth = array.map(setValueWidth);
         displayArray(arrayEqualWidth);
         myArray = arrayEqualWidth.join(" ");
-        var myArrayStr = myArray.toString();
         text(" " + myArray + "\n", x, yPosition);
         // text("i2: " + secondIndex + " i1: "+ i +"\n", x+200, yPosition);
         line(xPostionOfIndex(secondIndex) + x , yPosition,
                        xPostionOfIndex(i) + x , yPosition + 25);
-        // line(((secondIndex + 1) * fontWidth) + x + fontWidth * factor, yPosition, ((i+1) * fontWidth) + x + fontWidth * factor, yPosition + 25);
         swap(array, i, secondIndex);
     }
     text(" " + myArray + "\n", x, finalYposition + 35);
 };
 
-var array = [22, 11, 99, 88, -6];
+var array = [22, 11, 99, -6, 0];
 array = selectionSort(array, 0, 0);
-var array = [6, 5, 4, 3, 2];
+var array = [60, 50, 40, 30, 20];
 array = selectionSort(array, 180, 0);
 var array = [2, 2, 2, 2];
 array = selectionSort(array, 0, 7*32);
