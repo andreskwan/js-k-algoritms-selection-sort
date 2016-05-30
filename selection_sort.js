@@ -48,9 +48,8 @@ var indexOfMinimum = function(array, startIndex) {
 * this function turns a integer number into a string 
 * with a specific number of characters of width
 * 
-* @params 
-* 1- intValue: value to be turned into string with 
-* 2- stringWidth : number of characters that the output string should have
+* @parameter intValue: value to be turned into string with 
+* @parameter stringWidth : number of characters that the output string should have
 *
 * @Example:
 * inputs intValue: 1, stringWidth: 5 
@@ -78,6 +77,12 @@ var intToStringWithWidth =  function(intValue, stringWidth){
                                 }
                             };
 var stringWidth = 2;
+/**
+* this function is to be used inside a map function acting on
+* an array,
+* this function should be created because is not a goo idea define a function
+* inside a for loop
+*/
 var setValueWidth = function(intValue){
                         return intToStringWithWidth(intValue,stringWidth);
                     };
@@ -96,20 +101,23 @@ var setValueWidth = function(intValue){
 
 
 /**
+ * @Description
  * How I identified this indexFactor and the indexForPosition?
  * I create a grid of 16 spaces, each cell contains a number with 
- * type font monospace and font size of 15
- * a width of this width I called fontWidthFactor 
- * a character monosapced 
- * with font size of 15, 
- * so for an index 4 in the array of numbers to be organized correspond
- * to a index of 16 for 
+ * type font monospace with font size of 15
+ * the width of each cell is what I called fontWidthFactor 
+ *
+ * So, for an index 4 in the array of numbers to be organized,
+ * correspond to a index of 16 for the array of space, that is why
+ * I need a indexFactor of 3.75
  * so
- * 4 * indexFactor must be between 15 an 16
+ * 4 * indexFactor must be proximate to the position of cell 16
  * index * indexFactor = indexForPosition
  * 4     * 3.75        = 15    + 1 = 16
  * 3     * 3.75        = 11.25 + 1 = 12.25
  * 1     * 3.75        = 3.75  + 1 =  4.75
+ * @parameter index: which we want to identify the equivalent index of position
+ * @return the index of the array of positions
  */
 var indexFactor = 3.75;
 var indexForPosition = function(index){
@@ -127,9 +135,10 @@ var selectionSort = function(array, x, y) {
     var finalYposition = 0;
     var myArray = [];
     for(var i=0; i < array.length ; i++){
-        var secondIndex = indexOfMinimum(array,i);
-        var yPosition = 35*(i+1) + y;
+        var yPosition = 35 * (i + 1) + y;
         finalYposition = yPosition;
+
+        var secondIndex = indexOfMinimum(array,i);
         var arrayEqualWidth = array.map(setValueWidth);
         displayArray(arrayEqualWidth);
         myArray = arrayEqualWidth.join(" ");
