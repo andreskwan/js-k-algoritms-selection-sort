@@ -33,3 +33,10 @@ var array = [22, 11, 99, 88, 9, 7, 42];
 insertionSort(array);
 println("Array after sorting:  " + array);
 Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
+
+
+//testing with negative numbers and 0
+var array = [0, -100, -6, -8, -1, 10, 8];
+insertionSort(array);
+println("Array after sorting:  " + array);
+Program.assertEqual(array, [-100, -8, -6, -1, 0, 8, 10]);
