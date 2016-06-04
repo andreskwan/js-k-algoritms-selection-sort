@@ -172,25 +172,36 @@ var xPostionOfIndex = function(index, stringWidth){
     return indexForPosition(index, stringWidth) * characterWidth + (stringWidth/2 * characterWidth);
 };
 
-var selectionSort = function(array, x, y) {
-    var finalYposition = 0;
-    var myArray = [];
-    stringWidth = widestIntInArray(array);
-    for(var i=0; i < array.length ; i++){
+/**
+ * how to separate selectionSort logic from logic
+ * related with UI?
+ *
+ */
+var drawSelectionSort = function(i, secondIndex,x, y, array){
+        // stringWidth: is a global variable :(
+        stringWidth = widestIntInArray(array);
         var yPosition = 35 * (i + 1) + y;
-        finalYposition = yPosition;
-        var secondIndex = indexOfMinimum(array,i);
         var arrayEqualWidth = array.map(setValueWidth);
         displayArray(arrayEqualWidth);
-        myArray = arrayEqualWidth.join(" ");
+        var myArray = arrayEqualWidth.join(" ");
         text(" " + myArray + "\n", x, yPosition);
         // text("i2: " + secondIndex + " i1: "+ i +"\n", x+200, yPosition);
-        line(xPostionOfIndex(secondIndex, stringWidth) + x , yPosition,
-                       xPostionOfIndex(i, stringWidth) + x , yPosition + 25);
+        line(xPostionOfIndex(secondIndex, stringWidth) + x , yPosition, 
+             xPostionOfIndex(i, stringWidth)           + x , yPosition + 25);
+        return {yValue:yPosition, arrayToDisplay:myArray};
+};
+
+var selectionSort = function(array, x, y) {
+    var dictToDraw;    
+    for(var i=0; i < array.length ; i++){
+        var secondIndex = indexOfMinimum(array,i);
+        dictToDraw = drawSelectionSort(i, secondIndex,x, y, array);
         swap(array, i, secondIndex);
     }
-    text(" " + myArray + "\n", x, finalYposition + 35);
+    text(" " + dictToDraw.arrayToDisplay + "\n", x, dictToDraw.yValue + 35);
 };
+
+
 
 var array = [22, 11, 99, -6];
 array = selectionSort(array, 0, 0);
