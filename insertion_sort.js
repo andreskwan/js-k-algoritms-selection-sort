@@ -8,21 +8,6 @@ var insert = function(array, rightIndex, value) {
     }
     array[index + 1] = value;   
 };
-
-var array = [3, 5, 7, 11, 13, 2, 9, 6];
-
-insert(array, 4, 2);
-println("Array after inserting 2:  " + array);
-// Program.assertEqual(array, [2, 3, 5, 7, 11, 13, 9, 6]);
-
-insert(array, 5, 9);
-println("Array after inserting 9:  " + array);
-// Program.assertEqual(array, [2, 3, 5, 7, 9, 11, 13, 6]);
-
-insert(array, 6, 6);
-println("Array after inserting 6:  " + array);
-// Program.assertEqual(array, [2, 3, 5, 6, 7, 9, 11, 13]);
-
 /**
 * InsertionSort implementation 
 */
@@ -46,3 +31,17 @@ var array = [0, -100, -6, -8, -1, 10, 8];
 insertionSort(array);
 println("Array after sorting:  " + array);
 Program.assertEqual(array, [-100, -8, -6, -1, 0, 8, 10]);
+
+var array = [3, 5, 7, 11, 13, 2, 9, 6];
+
+insert(array, 4, 2);
+println("Array after inserting 2:  " + array);
+// Program.assertEqual(array, [2, 3, 5, 7, 11, 13, 9, 6]);
+
+insert(array, 5, 9);
+println("Array after inserting 9:  " + array);
+// Program.assertEqual(array, [2, 3, 5, 7, 9, 11, 13, 6]);
+
+insert(array, 6, 6);
+println("Array after inserting 6:  " + array);
+// Program.assertEqual(array, [2, 3, 5, 6, 7, 9, 11, 13]);
